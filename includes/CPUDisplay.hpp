@@ -8,10 +8,8 @@ class CPUDisplay: public IMonitorDisplay
 	public:
 		CPUDisplay(ADatas& datas, int px, int py);
 		~CPUDisplay(void);
-		void	setX(unsigned int n);
-		void	setY(unsigned int n);
 		void	displayNcurses(void);
-		void	displayGraph(int, int, int);
+		void	displayNGraph(int, int, int);
 		void	displayQt(void);
 	private:
 		WINDOW	*win;

@@ -1,6 +1,8 @@
 #ifndef A_DATAS_HPP
 #define A_DATAS_HPP
 #include <sstream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include "OStats.hpp"
 #include "IMonitorModule.hpp"
 
@@ -23,6 +25,8 @@ class ADatas: public IMonitorModule
 		std::string getCPUsageString(void);
 		virtual ~ADatas(void);
 		OStats& m_stats;
+		sf::RenderWindow *window;
+		sf::ContextSettings settings;
 
 	private:	
 		ADatas(void);

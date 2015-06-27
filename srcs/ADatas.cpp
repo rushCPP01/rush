@@ -60,5 +60,5 @@ std::string const &		ADatas::getMachine(void)
 
 std::string const &		ADatas::getTime(void)
 {
-	return (static_cast<std::string&>(m_stats.m_datas.front().Time));
+	return (static_cast<std::string&>(m_stats.m_datas.back().Time));
 }
