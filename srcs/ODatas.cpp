@@ -63,6 +63,8 @@ void ODatas::getDatas(void)
 {
     FILE *top;
     char buf[512] = {0};
+    int tmp;
+    float ftmp;
     std::stringstream topinfos;
 
     top = popen("top -n 0 -l 1 -s 0 | sed '2d' | grep -o ' \\d*\\.\\d*\\| \\d*' | tr -d '[:blank:]' | sed '/^$/d'", "r");
@@ -72,23 +74,50 @@ void ODatas::getDatas(void)
             topinfos << buf;
         pclose(top);
         for (int i = 0; i < 5; ++i)
-            topinfos >> Process[i];
+        {
+            topinfos >> tmp;
+            Process.emplace_back(tmp);
+        }
         for (int i = 0; i < 3; ++i)
-            topinfos >> LoadAvg[i];
+        {
+            topinfos >> ftmp;
+            LoadAvg.emplace_back(ftmp);
+        }
         for (int i = 0; i < 3; ++i)
-            topinfos >> CPUsage[i];
+        {
+            topinfos >> ftmp;
+            CPUsage.emplace_back(ftmp);
+        }
         for (int i = 0; i < 3; ++i)
-            topinfos >> SharedLibs[i];
+        {
+            topinfos >> tmp;
+            SharedLibs.emplace_back(tmp);
+        }
         for (int i = 0; i < 4; ++i)
-            topinfos >> MemRegions[i];
+        {
+            topinfos >> tmp;
+            MemRegions.emplace_back(tmp);
+        }
         for (int i = 0; i < 3; ++i)
-            topinfos >> PhyMem[i];
+        {
+            topinfos >> tmp;
+            PhyMem.emplace_back(tmp);
+        }
         for (int i = 0; i < 4; ++i)
-            topinfos >> VM[i];
+        {
+            topinfos >> tmp;
+            VM.emplace_back(tmp);
+        }
         for (int i = 0; i < 4; ++i)
-            topinfos >> Network[i];
+        {
+            topinfos >> tmp;
+            Network.emplace_back(tmp);
+        }
         for (int i = 0; i < 4; ++i)
-            topinfos >> Disks[i];
+        {
+            topinfos >> tmp;
+            Disks.emplace_back(tmp);
+        }
     }
     getTime();
 }

@@ -3,16 +3,14 @@
 #include <sstream>
 #include "OStats.hpp"
 #include "IMonitorModule.hpp"
-#include "IMonitorDisplay.hpp"
 
-class ADatas: public IMonitorModule, public IMonitorDisplay
+class ADatas: public IMonitorModule
 {
 	public:
 		ADatas(OStats& datas);
 		void				refreshDatas(void);
 		void				setInterval(unsigned int n);
-		virtual void		displayQt(void);
-		virtual void		displayNcurses(void);
+		unsigned int 			getInterval(void);
 		std::string const &		getHostname(void);
 		std::string const &		getUsername(void);
 		std::string const &		getSysname(void);
@@ -24,8 +22,6 @@ class ADatas: public IMonitorModule, public IMonitorDisplay
 		std::string getLoadAvgString(void);
 		std::string getCPUsageString(void);
 		virtual ~ADatas(void);
-
-	protected:
 		OStats& m_stats;
 
 	private:	

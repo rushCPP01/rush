@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <utility>
 #include <sys/utsname.h>
+#include <vector>
 
 /* Datas structure description: */
         // OSInfos[0] = infos.sysname;
@@ -76,15 +77,15 @@ public:
     std::string UserName;
     std::string OSInfos[4];
     std::string Time;
-    int     Process[5];
-    float   LoadAvg[3];
-    float   CPUsage[3];
-    int     SharedLibs[3];
-    int     MemRegions[4];
-    int     PhyMem[3];
-    int     VM[4];
-    int     Network[4];
-    int     Disks[4];
+    std::vector<int>     Process;
+    std::vector<float>   LoadAvg;
+    std::vector<float>   CPUsage;
+    std::vector<int>     SharedLibs;
+    std::vector<int>     MemRegions;
+    std::vector<int>     PhyMem;
+    std::vector<int>     VM;
+    std::vector<int>     Network;
+    std::vector<int>     Disks;
 private:
     ODatas& operator=(ODatas const & rhs);
     ODatas(ODatas const & src);

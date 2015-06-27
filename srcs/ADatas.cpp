@@ -11,6 +11,11 @@ ADatas::~ADatas(void)
 	return;
 }
 
+unsigned int 			ADatas::getInterval(void)
+{
+	return (m_stats.getMaxSize());
+}
+
 void	ADatas::refreshDatas(void)
 {
 	m_stats.statsRefresh();
@@ -20,16 +25,6 @@ void	ADatas::refreshDatas(void)
 void	ADatas::setInterval(unsigned int n)
 {
 	m_stats.setSize(n);
-	return;
-}
-
-void	ADatas::displayQt(void)
-{
-	return;
-}
-
-void	ADatas::displayNcurses(void)
-{
 	return;
 }
 

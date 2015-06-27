@@ -1,5 +1,6 @@
 #ifndef I_MONITOR_DISPLAY_HPP
 #define I_MONITOR_DISPLAY_HPP
+#include <ncurses.h>
 
 class IMonitorDisplay
 {
