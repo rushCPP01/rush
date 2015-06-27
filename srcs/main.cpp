@@ -65,7 +65,7 @@ void				Ncurses_Mode(ADatas& dat)
 		input = getch();
 		dat.refreshDatas();
 		refresh();
-		usleep(300000);
+	//	usleep(300000);
 	}
 	endwin();
 }
