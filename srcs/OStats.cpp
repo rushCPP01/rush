@@ -16,10 +16,12 @@ OStats::OStats(unsigned int size)
 
 void OStats::setSize(unsigned int n)
 {
+    while (n < m_datas.size())
+        m_datas.pop_front();
     m_maxsize = n;
 }
 
-unsigned int OStats::getSize(void)
+unsigned int OStats::getMaxSize(void)
 {
     return (m_maxsize);
 }
