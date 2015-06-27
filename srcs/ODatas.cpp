@@ -79,8 +79,6 @@ void ODatas::getDatas(void)
             topinfos >> CPUsage[i];
         for (int i = 0; i < 3; ++i)
             topinfos >> SharedLibs[i];
-   //     for (int i = 0; i < 3; ++i)
-     //       topinfos >> LoadAvg[i];
         for (int i = 0; i < 4; ++i)
             topinfos >> MemRegions[i];
         for (int i = 0; i < 3; ++i)

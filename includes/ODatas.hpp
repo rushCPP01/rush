@@ -15,6 +15,10 @@
 #include <sys/utsname.h>
 
 /* Datas structure description: */
+        // OSInfos[0] = infos.sysname;
+        // OSInfos[1] = infos.release;
+        // OSInfos[2] = infos.version;
+        // OSInfos[3] = infos.machine;
         /* Process[0] == Tasks Total            */
         /* Process[1] == Tasks Running          */
         /* Process[2] == Tasks Sleeping         */
@@ -34,9 +38,9 @@
         /* SharedLibs[2] == SharedLibs Link Editor MemUsage     */
 
         /* MemRegions[0] == MemRegions Size Total               */
-        /* MemRegions[1] == MemRegions Broken private           */
-        /* MemRegions[2] == MemRegions Shared                   */
-        /* MemRegions[3] == ?                                   */
+        /* MemRegions[1] == MemRegions Broken Resident          */
+        /* MemRegions[2] == MemRegions Private                  */
+        /* MemRegions[3] == Shared                              */
 
         /* PhyMem[0] == PhyMem MemUsage                 */
         /* PhyMem[1] == PhyMem broken(wired)            */
@@ -72,9 +76,9 @@ public:
     std::string UserName;
     std::string OSInfos[4];
     std::string Time;
-    float   CPUsage[3];
     int     Process[5];
     float   LoadAvg[3];
+    float   CPUsage[3];
     int     SharedLibs[3];
     int     MemRegions[4];
     int     PhyMem[3];

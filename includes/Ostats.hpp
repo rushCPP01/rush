@@ -9,12 +9,12 @@ class OStats
         OStats(void);
         OStats(unsigned int size);
         void setSize(unsigned int n);
-        unsigned int getSize(void);
+        unsigned int getMaxSize(void);
         void statsRefresh(void);
         ~OStats(void);
+        std::deque<ODatas> m_datas;
 
     protected:
-        std::deque<ODatas> m_datas;
         unsigned int m_maxsize;
 
     private:

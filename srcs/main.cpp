@@ -11,11 +11,24 @@
 /* ************************************************************************** */
 
 #include <iostream>
+#include "ADatas.hpp"
+#include <vector>
+
+void				test_datasinfos(void)
+{
+	OStats stat(static_cast<unsigned int>(10));
+	ADatas dat(stat);
+	while (1)
+	{
+		dat.refreshDatas();
+	}
+}
 
 int					main(int ac, char **av)
 {
 	std::cout << "main de demarrage : mettre les test dessous" << std::endl;
 	(void)ac;
 	(void)av;
+	test_datasinfos();
 	return 0;
 }
