@@ -3,22 +3,22 @@
 #include <deque>
 #include "ODatas.hpp"
 
-class Ostats
+class OStats
 {
     public:
-        Ostats(void);
-        Ostats(unsigned int size);
+        OStats(void);
+        OStats(unsigned int size);
         void setSize(unsigned int n);
         unsigned int getSize(void);
         void statsRefresh(void);
-        ~Ostats(void);
+        ~OStats(void);
 
     protected:
         std::deque<ODatas> m_datas;
         unsigned int m_maxsize;
 
     private:
-        Ostats(Ostats const & src);
-        Ostats& operator=(Ostats const & rhs);
+        OStats(OStats const & src);
+        OStats& operator=(OStats const & rhs);
 };
 #endif
