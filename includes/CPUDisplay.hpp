@@ -8,6 +8,7 @@
 #include <sys/resource.h>
 #include "IMonitorDisplay.hpp"
 #include "ADatas.hpp"
+#include <iostream>
 
 class CPUDisplay: public IMonitorDisplay
 {

@@ -3,8 +3,18 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include "OStats.hpp"
 #include "IMonitorModule.hpp"
+
+#define CGREEN 39, 174, 96
+#define CRED 192, 57, 43
+#define CORANGE 230, 126, 34
+#define CBLUE 41, 128, 185
+#define CYELLOW 241, 196, 15
+#define CMAGENTA 142, 68, 173
+#define CGREY 127, 140, 141
 
 class ADatas: public IMonitorModule
 {
@@ -25,8 +35,9 @@ public:
 	std::string getCPUsageString(void);
 	virtual ~ADatas(void);
 	OStats& m_stats;
-	sf::RenderWindow *window;
-	sf::ContextSettings settings;
+	sf::RenderWindow 		*window;
+	sf::ContextSettings 	settings;
+	sf::Font 				font;
 
 private:	
 	ADatas(void);

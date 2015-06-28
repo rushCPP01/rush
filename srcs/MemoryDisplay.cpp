@@ -71,14 +71,68 @@ void	MemoryDisplay::displayNcurses(void)
 	displayNGraph();
 }
 
+void	MemoryDisplay::displayQt(void)
+{
+	sf::Text text;
+	std::string s;
+
+	text.setFont(m_datas.font);
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CYELLOW, 236));
+	text.setCharacterSize(15);
+	s = "Memory Regions:";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[0]) + " Total.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[1]) + "M Resident.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[2]) + "M Private.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[3]) + "M Shared.";
+	text.setString(s);
+	text.setPosition(1150, 200);
+	m_datas.window->draw(text);
+
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CORANGE, 236));
+	text.setCharacterSize(15);
+	s = "Physical Memory:";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[0]) + "M Total used.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[1]) + "M Wired.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().MemRegions[3]) + "M Unused.";
+	text.setString(s);
+	text.setPosition(1150, 350);
+	m_datas.window->draw(text);
+
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CRED, 236));
+	text.setCharacterSize(15);
+	s = "Virtual Memory:";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().VM[0]) + "G Total.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().VM[1]) + "M SharedLibs.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().VM[2]) + " Swapin.";
+	s += "\n   " + std::to_string(m_datas.m_stats.m_datas.back().VM[3]) + " Swapout.";
+	text.setString(s);
+	text.setPosition(1150, 500);
+	m_datas.window->draw(text);
+
+	// std::vector<sf::Vertex> user;
+	// std::vector<sf::Vertex> sys;
+	// std::vector<sf::Vertex> idle;
+
+	// //vector<int> values.size()
+	// for (int i = 0; i < size; ++i)
+	// {
+	// 	user.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 3 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[0])), sf::Color::Red));
+	// 	sys.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 3 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[1])), sf::Color::Blue));
+	// 	idle.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 3 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[2])), sf::Color::Green));
+	// }
+	// m_datas.window->draw(&user[0], user.size(), sf::LinesStrip);
+	// m_datas.window->draw(&sys[0], sys.size(), sf::LinesStrip);
+	// m_datas.window->draw(&idle[0],idle.size(), sf::LinesStrip);
+	// return;
+}
+
+
 MemoryDisplay::~MemoryDisplay(void)
 {
 	delwin(win);
 	delwin(graph);
-	return;
-}
-
-void	MemoryDisplay::displayQt(void)
-{
 	return;
 }

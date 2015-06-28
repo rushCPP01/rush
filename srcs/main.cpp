@@ -6,12 +6,11 @@
 /*   By: rpinet <rpinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/27 14:10:22 by rpinet            #+#    #+#             */
-/*   Updated: 2015/06/27 23:04:10 by rpinet           ###   ########.fr       */
+/*   Updated: 2015/06/28 21:34:40 by rpinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "Tools.hpp"
 #include "ADatas.hpp"
 #include "CPUDisplay.hpp"
 #include "InfosDisplay.hpp"
@@ -20,6 +19,7 @@
 #include "MemoryDisplay.hpp"
 #include "NetworkDisplay.hpp"
 #include "DiskDisplay.hpp"
+#include <cstring>
 #define KEY_ECHAP 27
 #define NCOLOR(x) (x*4)
 #define MYGREEN	  67
@@ -54,7 +54,7 @@ void				colorsDefines(void)
 	init_pair(53, COLOR_BLACK, MYGREY);
 }
 
-void				Ncurses_Mode(ADatas& dat)
+void				Ncurses_Mode(ADatas& dat, char **av)
 {
 	int input = -1;
 	int x;
@@ -96,37 +96,58 @@ void				Ncurses_Mode(ADatas& dat)
 		usleep(30000);
 	}
 	endwin();
+
+
+
+	(void)av;
 }
 
-void 				test1sfml(ADatas &env)
+void 				sfmlMode(ADatas &env, char **av)
 {
 	env.settings.antialiasingLevel = 8;
-
-    env.window = new sf::RenderWindow(sf::VideoMode(1000, 800), "SFML works!", sf::Style::Default, env.settings);
+    env.window = new sf::RenderWindow(sf::VideoMode(1800, 1200), "SFML works!", sf::Style::Default, env.settings);
     env.window->setVerticalSyncEnabled(true); // , un appel suffit, après la création de la fenêtre
+    /* load font */
+	if (!env.font.loadFromFile("misc/Calibri.ttf")) {
+		std::cout << "Font loading error." << std::endl; exit(0);
+	}
+	/* licorne */
+	sf::CircleShape shape(100);
+	sf::Texture texture;
+	if (!texture.loadFromFile("misc/licorne.png")) {
+		std::cout << "mais ou est la licorne ..." << std::endl;
+    	exit (0);
+	}
+	shape.setTexture(&texture); // texture est un sf::Texture
+	shape.setTextureRect(sf::IntRect(10, 10, 300, 300));
+	/* data */
+	env.setInterval(env.window->getSize().x / 4);
 	CPUDisplay cpu(env, 2, 21);
+	InfosDisplay infos(env, 2, 2);
+	ProcessDisplay process(env, 2, 13);
+ 	LoadADisplay LoadAv(env, 2, 21 + env.window->getSize().y / 4);
+ 	//MemoryDisplay Mem(env, 2, 21 + (env.window->getSize().y / 4) + 7);
+ 	MemoryDisplay Mem(env, 2, 30);
+	NetworkDisplay Net(env, 2, env.window->getSize().y - 25);
+	DiskDisplay Disk(env, 2, env.window->getSize().y - 21);
     while (env.window->isOpen())
     {
 		env.refreshDatas();
         sf::Event event;
+        //dat.setInterval((event.size.width - 8) / 2);
         while (env.window->pollEvent(event))
         {
-           // on regarde le type de l'évènement...
 	   		switch (event.type)
 		    {
-		        // fenêtre fermée
 		        case sf::Event::Closed:
 		            env.window->close();
 		            break;
 		        case sf::Event::Resized:
-		            std::cout << "new width: " << event.size.width << std::endl;
-	    			std::cout << "new height: " << event.size.height << std::endl;
+		      //       std::cout << "new width: " << event.size.width << std::endl;
+	    			// std::cout << "new height: " << event.size.height << std::endl;
 		            break;
-
-		        // touche pressée
 		        case sf::Event::KeyPressed:
 		            break;
-
 		        // on ne traite pas les autres types d'évènements
 		        default:
 		            break;
@@ -134,21 +155,87 @@ void 				test1sfml(ADatas &env)
 
         }
         env.window->clear(sf::Color::Black);
+		env.window->draw(shape);
         cpu.displayQt();
+        infos.displayQt();
+        process.displayQt();
+ 		LoadAv.displayQt();
+ 		Mem.displayQt();
+ 		Net.displayQt();
+ 		Disk.displayQt();
+        /* print on screen */
         env.window->display();
-        sf::sleep(sf::seconds(0.1f));
+        sf::sleep(sf::seconds(0.01f));
     }
+
+	(void)av;
 }
 
+
+// int 				check_module(char *s, char **av)
+// {
+// 	int 			i;
+
+// 	i = 0;
+// 	while (av)
+// 	{
+// 		if (av[i] == s)
+
+// 	}
+// }
+
+void 				print_help(void)
+{
+	std::cout << "usage : DYLD_FRAMEWORK_PATH=`pwd`\"/SFML/Frameworks\" ./ft_gkrellm [options] [modules ...]\n\n";
+	std::cout << "\toptions: \n\t\t-n\tfor ncurses display\n\t\t-g for graphics display (SMFL)\n";
+	std::cout << "write each module like this -> module1 module2 module3 ...\n";
+	std::cout << "\tlist of modules:\n\t\tcpu\n\t\tdisk\n\t\tinfos\n\t\tload\n\t\tmemory\n\t\tnetwork\n\t\tprocess\n";
+}
+
+void 				launch(ADatas *dat, char **av)
+{
+	//mieux faire fork
+	Ncurses_Mode(*dat, av);
+	sfmlMode(*dat, av);
+	std::cout << "\n\n\nBye" << std::endl;
+	return;
+}
+
+void 				check_arg(int ac, char **av, ADatas *dat)
+{
+	switch (ac)
+	{
+		case 1:
+			print_help();
+		break;
+		case 2:
+			if (strcmp(av[1], "-n") != 0 && strcmp(av[1], "-g") != 0 && strcmp(av[1], "-ng") != 0)
+				print_help();
+			else {
+				if (strcmp(av[1], "-ng") == 0 || strcmp(av[1], "-gn") == 0)
+					launch(dat, av);
+				else if (strcmp(av[1], "-n") == 0)
+					Ncurses_Mode(*dat, av);
+				else
+					sfmlMode(*dat, av);
+			}
+		break;
+		default:
+			Ncurses_Mode(*dat, av);
+			sfmlMode(*dat, av);
+		break;
+	}
+	(void)av;
+}
+
+// DYLD_FRAMEWORK_PATH=`pwd`"/SFML/Frameworks" ./ft_gkrellm
 int					main(int ac, char **av)
 {
 	srand(time(NULL));
-	std::cout << "main de demarrage : mettre les test dessous" << std::endl;
+	std::string mod = "0000000";
 	OStats stat(static_cast<unsigned int>(10));
 	ADatas dat(stat);
-	(void)ac;
-	(void)av;
-	Ncurses_Mode(dat);
-	test1sfml(dat);
+	check_arg(ac, av, &dat);
+	(void)mod;
 	return 0;
 }

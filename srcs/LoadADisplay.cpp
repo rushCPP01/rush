@@ -34,3 +34,34 @@ void		LoadADisplay::displayNcurses(void)
 	wattroff(win, COLOR_PAIR(43));
 	wrefresh(win);
 }
+
+
+void		LoadADisplay::displayQt(void)
+{
+	sf::Text text;
+	std::string s;
+
+	text.setFont(m_datas.font);
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CRED, 236));
+	text.setCharacterSize(15);
+	s = "LoadAverage:";
+	s += "\n1min: " + std::to_string(m_datas.m_stats.m_datas.back().LoadAvg[0]);
+	s += "\n5min: " + std::to_string(m_datas.m_stats.m_datas.back().LoadAvg[1]);
+	s += "\n15min: " + std::to_string(m_datas.m_stats.m_datas.back().LoadAvg[2]);
+	text.setString(s);
+	text.setPosition(400, 600);
+	m_datas.window->draw(text);
+
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CORANGE, 236));
+	text.setCharacterSize(15);
+	s = "SharedLibs:";
+	s += "\nSize of code: " + std::to_string(m_datas.m_stats.m_datas.back().SharedLibs[0]);
+	s += "\nDatas Segment: " + std::to_string(m_datas.m_stats.m_datas.back().SharedLibs[1]);
+	s += "\nLink Editor Memory usage: " + std::to_string(m_datas.m_stats.m_datas.back().SharedLibs[2]);
+	text.setString(s);
+	text.setPosition(600, 600);
+	m_datas.window->draw(text);
+	return;
+}

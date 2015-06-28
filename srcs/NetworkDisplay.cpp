@@ -32,5 +32,18 @@ NetworkDisplay::~NetworkDisplay(void)
 
 void	NetworkDisplay::displayQt(void)
 {
+	sf::Text text;
+	std::string s;
+
+	text.setFont(m_datas.font);
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CBLUE, 236));
+	text.setCharacterSize(15);
+	s = "Network: ";
+	s += "\t" + std::to_string(m_datas.m_stats.m_datas.back().Network[0]) + "/" + std::to_string(m_datas.m_stats.m_datas.back().Network[1]) + "G Input.";
+	s += "\t\t" + std::to_string(m_datas.m_stats.m_datas.back().Network[2]) + "/" + std::to_string(m_datas.m_stats.m_datas.back().Network[3]) + "G Output.";
+	text.setString(s);
+	text.setPosition(20, 800);
+	m_datas.window->draw(text);
 	return;
 }

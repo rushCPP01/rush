@@ -8,7 +8,7 @@ class LoadADisplay: public IMonitorDisplay
 	public:
 		LoadADisplay(ADatas& datas, int px, int py);
 		void	displayNcurses(void);
-		void	displayQt(void){};
+		void	displayQt(void);
 		~LoadADisplay(void);
 	private:
 		WINDOW	*win;

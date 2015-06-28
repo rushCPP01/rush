@@ -32,5 +32,19 @@ DiskDisplay::~DiskDisplay(void)
 
 void	DiskDisplay::displayQt(void)
 {
+	sf::Text text;
+	std::string s;
+
+	text.setFont(m_datas.font);
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CMAGENTA, 236));
+	text.setCharacterSize(15);
+	s = "Disks: ";
+	s += "\t" + std::to_string(m_datas.m_stats.m_datas.back().Disks[0]) + "G Read. 	" + std::to_string(m_datas.m_stats.m_datas.back().Disks[1]);
+	s += "\t" + std::to_string(m_datas.m_stats.m_datas.back().Disks[2]) + "G Write. 	" + std::to_string(m_datas.m_stats.m_datas.back().Disks[3]);
+	text.setString(s);
+	text.setPosition(20, 950);
+	m_datas.window->draw(text);
+
 	return;
 }

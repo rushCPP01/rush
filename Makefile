@@ -38,7 +38,7 @@ fclean:		clean
 		@$(RM) $(NAME)
 
 launch:
-	@DYLD_FRAMEWORK_PATH=`pwd`"/SFML/Frameworks" ./ft_gkrellm
+	@DYLD_FRAMEWORK_PATH=`pwd`"/SFML/Frameworks" ./ft_gkrellm -ng
 
 
 

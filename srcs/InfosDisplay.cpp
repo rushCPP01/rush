@@ -35,3 +35,32 @@ void		InfosDisplay::displayNcurses(void)
 	wattroff(win, COLOR_PAIR(44));
 	wrefresh(win);
 }
+
+
+void		InfosDisplay::displayQt(void)
+{
+	sf::Text text;
+	std::string s;
+
+	text.setFont(m_datas.font);
+	text.setCharacterSize(25);
+	text.setColor(sf::Color::White);
+	text.setString("INFORMATION SYSTEME");
+	text.setPosition(400, 20);
+	m_datas.window->draw(text);
+
+	text.setStyle(sf::Text::Bold);
+	text.setColor(sf::Color(CBLUE, 200));
+	text.setCharacterSize(15);
+
+	s = "\nHostname: " + m_datas.getHostname();
+	s += "\tUsername: " + m_datas.getUsername();
+	s += "\tSysname: " + m_datas.getSysname();
+	s += "\tRelease: " + m_datas.getRelease();
+	s += "\tMachine: " + m_datas.getMachine();
+	s += "\tTime: " + m_datas.getTime();
+	text.setString(s);
+	text.setPosition(400, 40);
+	m_datas.window->draw(text);
+	return;
+}

@@ -81,31 +81,49 @@ void	CPUDisplay::displayQt(void)
 	std::vector<sf::Vertex> sys;
 	std::vector<sf::Vertex> idle;
 // sf::Vector2f(500, 500); // for origin
-	float posX = 100;
-	float posY = 300;
+	int posX = 400;
+	int posY = 500;
 	int size = m_datas.m_stats.m_datas.size();
 
-	sf::Font font;
-	if (!font.loadFromFile("misc/Calibri.ttf")) {
-		std::cout << "Font loading error." << std::endl;
-		exit(0);
-	}
 	sf::Text text;
-	text.setFont(font); // choix de la police à utiliser // font est un sf::Font
-	text.setString("CPU usage");// choix de la chaîne de caractères à afficher
-	text.setCharacterSize(24); // choix de la taille des caractères // exprimée en pixels, pas en points !
-	text.setColor(sf::Color(50, 255, 200, 150));// choix de la couleur du texte
-	text.setPosition(posX, posY + 30);
+	text.setCharacterSize(15); // choix de la taille des caractères // exprimée en pixels, pas en points !
+	//text.setColor(sf::Color(50, 255, 200, 150));// choix de la couleur du texte
+	text.setColor(sf::Color::White);// choix de la couleur du texte
+	
+
+	text.setFont(m_datas.font); // choix de la police à utiliser // font est un sf::Font
+	text.setStyle(sf::Text::Bold);
+	std::string s = "CPU Data:\n\tName: " + m_datas.m_stats.m_datas[0].CPUInfos[0];
+	s += "\n\tVendor: " + m_datas.m_stats.m_datas[0].CPUInfos[1];
+	s += "\n\tCores: " + std::to_string(m_datas.m_stats.m_datas[0].ncpu);
+	s += "\n\nCPU usage:\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[0]) + "\% user.";
+	s += "\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[1]) + "\% system.";
+	s += "\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[2]) + "\% idle.";
+	text.setString(s);// choix de la chaîne de caractères à afficher
+	text.setPosition(posX - 380, posY - 250);
 	m_datas.window->draw(text);
 	//vector<int> values.size()
 	for (int i = 0; i < size; ++i)
 	{
-		user.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[0])), sf::Color::Red));
-		sys.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[1])), sf::Color::Blue));
-		idle.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[2])), sf::Color::Green));
+		user.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 4 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[0])), sf::Color::Red));
+		sys.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 4 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[1])), sf::Color::Blue));
+		idle.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - 4 * static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[2])), sf::Color::Green));
 	}
 	m_datas.window->draw(&user[0], user.size(), sf::LinesStrip);
 	m_datas.window->draw(&sys[0], sys.size(), sf::LinesStrip);
 	m_datas.window->draw(&idle[0],idle.size(), sf::LinesStrip);
 	return;
 }
+
+	// std::string s;
+	// std::stringstream ss;
+ // 	ss.unsetf ( std::ios::floatfield );                // floatfield not set
+ //  	ss.precision(2);
+	// ss << "CPU Data:\n\tName: " + m_datas.m_stats.m_datas[0].CPUInfos[0];
+	// ss << "\n\tVendor: " + m_datas.m_stats.m_datas[0].CPUInfos[1];
+	// ss << "\n\tCores: " + std::to_string(m_datas.m_stats.m_datas[0].ncpu);
+	// ss << "\n\nCPU usage:\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[0]) + "\% user.";
+	// ss << "\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[1]) + "\% system.";
+	// ss << "\n\t" + std::to_string(m_datas.m_stats.m_datas.back().CPUsage[2]) + "\% idle.";
+	// ss >> s;
+	// text.setString(s);// choix de la chaîne de caractères à afficher

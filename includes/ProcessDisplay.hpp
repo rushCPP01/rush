@@ -9,7 +9,7 @@ class ProcessDisplay: public IMonitorDisplay
 		ProcessDisplay(ADatas& datas, int px, int py);
 		~ProcessDisplay(void);
 		void	displayNcurses(void);
-		void	displayQt(void){};
+		void	displayQt(void);
 	private:
 		WINDOW	*win;
 		ADatas&	m_datas;

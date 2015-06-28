@@ -62,3 +62,4 @@ std::string const &		ADatas::getTime(void)
 {
 	return (static_cast<std::string&>(m_stats.m_datas.back().Time));
 }
+
