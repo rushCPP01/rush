@@ -7,6 +7,7 @@ class DiskDisplay: public IMonitorDisplay
 {
 	public:
 		DiskDisplay(ADatas& datas, int px, int py);
+		DiskDisplay(ADatas& datas);
 		~DiskDisplay(void);
 		void	displayNcurses(void);
 		void	displayQt(void);

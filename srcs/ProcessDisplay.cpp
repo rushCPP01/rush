@@ -8,6 +8,11 @@ ProcessDisplay::ProcessDisplay(ADatas& datas, int px, int py): m_datas(datas), p
 	return;
 }
 
+ProcessDisplay::ProcessDisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
 ProcessDisplay::~ProcessDisplay(void)
 {
 	delwin(win);

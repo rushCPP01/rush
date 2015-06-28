@@ -6,6 +6,12 @@ NetworkDisplay::NetworkDisplay(ADatas& datas, int px, int py): m_datas(datas), p
 	return;
 }
 
+
+NetworkDisplay::NetworkDisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
 int		NetworkDisplay::choose_color(int value)
 {
 	return (42 + (value / 35));

@@ -7,6 +7,7 @@ class MemoryDisplay: public IMonitorDisplay
 {
 	public:
 		MemoryDisplay(ADatas& datas, int px, int py);
+		MemoryDisplay(ADatas& datas);
 		~MemoryDisplay(void);
 		void	displayNcurses(void);
 		void	displayNGraph(void);

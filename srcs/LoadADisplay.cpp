@@ -6,6 +6,12 @@ LoadADisplay::LoadADisplay(ADatas& datas, int px, int py): m_datas(datas), posX(
 	return;
 }
 
+LoadADisplay::LoadADisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
+
 LoadADisplay::~LoadADisplay(void)
 {
 	delwin(win);

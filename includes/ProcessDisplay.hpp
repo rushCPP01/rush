@@ -7,6 +7,7 @@ class ProcessDisplay: public IMonitorDisplay
 {
 		public:
 		ProcessDisplay(ADatas& datas, int px, int py);
+		ProcessDisplay(ADatas& datas);
 		~ProcessDisplay(void);
 		void	displayNcurses(void);
 		void	displayQt(void);

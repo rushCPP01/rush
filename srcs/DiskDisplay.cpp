@@ -5,6 +5,11 @@ DiskDisplay::DiskDisplay(ADatas& datas, int px, int py): m_datas(datas), posX(px
 	win = subwin(stdscr, 3, (getmaxx(stdscr)) - 4, posY, posX);
 	return;
 }
+DiskDisplay::DiskDisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
 
 int		DiskDisplay::choose_color(int value)
 {

@@ -6,6 +6,11 @@ InfosDisplay::InfosDisplay(ADatas& datas, int px, int py): m_datas(datas), posX(
 	return;
 }
 
+InfosDisplay::InfosDisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
 InfosDisplay::~InfosDisplay(void)
 {
 	delwin(win);

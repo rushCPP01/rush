@@ -7,6 +7,9 @@ CPUDisplay::CPUDisplay(ADatas& datas, int px, int py): m_datas(datas), posX(px),
 	return;
 }
 
+CPUDisplay::CPUDisplay(ADatas& datas) : m_datas(datas)
+{}
+
 int		CPUDisplay::choose_color(int value)
 {
 	return (42 + (value / 35));

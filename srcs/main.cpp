@@ -6,7 +6,7 @@
 /*   By: rpinet <rpinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/27 14:10:22 by rpinet            #+#    #+#             */
-/*   Updated: 2015/06/28 21:34:40 by rpinet           ###   ########.fr       */
+/*   Updated: 2015/06/28 23:01:46 by rpinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 #include "NetworkDisplay.hpp"
 #include "DiskDisplay.hpp"
 #include <cstring>
+#include <stdio.h>
+#include <unistd.h>
+
+
 #define KEY_ECHAP 27
 #define NCOLOR(x) (x*4)
 #define MYGREEN	  67
@@ -54,7 +58,7 @@ void				colorsDefines(void)
 	init_pair(53, COLOR_BLACK, MYGREY);
 }
 
-void				Ncurses_Mode(ADatas& dat, char **av)
+void				Ncurses_Mode(ADatas & dat, char **av)
 {
 	int input = -1;
 	int x;
@@ -102,7 +106,7 @@ void				Ncurses_Mode(ADatas& dat, char **av)
 	(void)av;
 }
 
-void 				sfmlMode(ADatas &env, char **av)
+void 				sfmlMode(ADatas & env, char **av)
 {
 	env.settings.antialiasingLevel = 8;
     env.window = new sf::RenderWindow(sf::VideoMode(1800, 1200), "SFML works!", sf::Style::Default, env.settings);
@@ -119,22 +123,21 @@ void 				sfmlMode(ADatas &env, char **av)
     	exit (0);
 	}
 	shape.setTexture(&texture); // texture est un sf::Texture
-	shape.setTextureRect(sf::IntRect(10, 10, 300, 300));
+	shape.setTextureRect(sf::IntRect(10, 20, 300, 300));
+
 	/* data */
-	env.setInterval(env.window->getSize().x / 4);
-	CPUDisplay cpu(env, 2, 21);
-	InfosDisplay infos(env, 2, 2);
-	ProcessDisplay process(env, 2, 13);
- 	LoadADisplay LoadAv(env, 2, 21 + env.window->getSize().y / 4);
- 	//MemoryDisplay Mem(env, 2, 21 + (env.window->getSize().y / 4) + 7);
- 	MemoryDisplay Mem(env, 2, 30);
-	NetworkDisplay Net(env, 2, env.window->getSize().y - 25);
-	DiskDisplay Disk(env, 2, env.window->getSize().y - 21);
+	env.setInterval(120);
+	CPUDisplay cpu(env);
+	InfosDisplay infos(env);
+	ProcessDisplay process(env);
+ 	LoadADisplay LoadAv(env);
+ 	MemoryDisplay Mem(env);
+	NetworkDisplay Net(env);
+	DiskDisplay Disk(env);
     while (env.window->isOpen())
     {
 		env.refreshDatas();
         sf::Event event;
-        //dat.setInterval((event.size.width - 8) / 2);
         while (env.window->pollEvent(event))
         {
 	   		switch (event.type)
@@ -195,10 +198,8 @@ void 				print_help(void)
 void 				launch(ADatas *dat, char **av)
 {
 	//mieux faire fork
-	Ncurses_Mode(*dat, av);
 	sfmlMode(*dat, av);
-	std::cout << "\n\n\nBye" << std::endl;
-	return;
+	Ncurses_Mode(*dat, av);
 }
 
 void 				check_arg(int ac, char **av, ADatas *dat)
@@ -209,15 +210,16 @@ void 				check_arg(int ac, char **av, ADatas *dat)
 			print_help();
 		break;
 		case 2:
-			if (strcmp(av[1], "-n") != 0 && strcmp(av[1], "-g") != 0 && strcmp(av[1], "-ng") != 0)
+			if (strcmp(av[1], "-n") != 0 && strcmp(av[1], "-g") != 0 && strcmp(av[1], "-ng") != 0 && strcmp(av[1], "-gn") != 0)
 				print_help();
 			else {
 				if (strcmp(av[1], "-ng") == 0 || strcmp(av[1], "-gn") == 0)
 					launch(dat, av);
 				else if (strcmp(av[1], "-n") == 0)
 					Ncurses_Mode(*dat, av);
-				else
+				else {
 					sfmlMode(*dat, av);
+				}
 			}
 		break;
 		default:

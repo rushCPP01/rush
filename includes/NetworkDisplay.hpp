@@ -7,6 +7,7 @@ class NetworkDisplay: public IMonitorDisplay
 {
 	public:
 		NetworkDisplay(ADatas& datas, int px, int py);
+		NetworkDisplay(ADatas& datas);
 		~NetworkDisplay(void);
 		void	displayNcurses(void);
 		void	displayQt(void);

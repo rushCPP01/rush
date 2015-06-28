@@ -7,6 +7,12 @@ MemoryDisplay::MemoryDisplay(ADatas& datas, int px, int py): m_datas(datas), pos
 	return;
 }
 
+MemoryDisplay::MemoryDisplay(ADatas& datas): m_datas(datas)
+{
+	return;
+}
+
+
 int		MemoryDisplay::choose_color(int value)
 {
 	return (42 + (value / 35));
