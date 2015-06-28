@@ -81,7 +81,7 @@ void ODatas::getDatas(void)
     float ftmp;
     std::stringstream topinfos;
 
-    top = popen("top -n 0 -l 1 -s 0 | sed '2d' | grep -o ' \\d*\\.\\d*\\| \\d*' | tr -d '[:blank:]' | sed '/^$/d'", "r");
+    top = popen("top -n 0 -l 1 -s 0 | sed '2d' | grep -o '\\d\\+\\.\\d\\+\\|\\d\\+'", "r");
     if (top)
     {
         while (fgets(buf, sizeof(buf), top) != NULL)
@@ -117,12 +117,14 @@ void ODatas::getDatas(void)
             topinfos >> tmp;
             PhyMem.emplace_back(tmp);
         }
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 5; ++i)
         {
             topinfos >> tmp;
-            VM.emplace_back(tmp);
+            if (i != 3)
+                VM.emplace_back(tmp);
         }
-        for (int i = 0; i < 4; ++i)
+        topinfos >> tmp;
+        for (int i = 0; i < 5; ++i)
         {
             topinfos >> tmp;
             Network.emplace_back(tmp);

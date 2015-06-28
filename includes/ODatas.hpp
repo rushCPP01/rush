@@ -54,10 +54,10 @@
         /* VM[2] == VM Numbers Pages IN                  */
         /* VM[3] == VM Numbers Pages OUT                 */
 
-        /* Network[0] == Network Total size               */
-        /* Network[1] == Network Input                    */
-        /* Network[2] == Network Output                   */
-        /* Network[3] == Network Total Packets            */
+        /* Network[0] == Network receive in               */
+        /* Network[1] == Network / qtt                    */
+        /* Network[2] == Network send out                   */
+        /* Network[3] == Network / qtt                    */
 
         /* Disks[0] == Disks Totalsize                 */
         /* Disks[1] == Disks FreeSize                  */

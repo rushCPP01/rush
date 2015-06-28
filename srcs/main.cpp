@@ -18,6 +18,8 @@
 #include "ProcessDisplay.hpp"
 #include "LoadADisplay.hpp"
 #include "MemoryDisplay.hpp"
+#include "NetworkDisplay.hpp"
+#include "DiskDisplay.hpp"
 #define KEY_ECHAP 27
 #define NCOLOR(x) (x*4)
 #define MYGREEN	  67
@@ -26,7 +28,7 @@
 #define MYBLUE	  70
 #define MYYELLOW  71
 #define MYMAGENTA 72
-#define MYGREY	  73
+#define MYGREY	  7
 
 void				colorsDefines(void)
 {
@@ -73,7 +75,8 @@ void				Ncurses_Mode(ADatas& dat)
 	ProcessDisplay process(dat, 2, 13);
 	CPUDisplay cpu(dat, 2, 21);
 	LoadADisplay LoadAv(dat, 2, 21 + getmaxy(stdscr) / 4);
-	MemoryDisplay Mem(dat, 2, 50);
+	MemoryDisplay Mem(dat, 2, 21 + (getmaxy(stdscr) / 4) + 7);
+	NetworkDisplay Net(dat, 2, getmaxy(stdscr) - 25);
 	while (input != KEY_ECHAP)
 	{
 		dat.setInterval(getmaxx(stdscr));
@@ -84,6 +87,7 @@ void				Ncurses_Mode(ADatas& dat)
 		process.displayNcurses();
 		LoadAv.displayNcurses();
 		Mem.displayNcurses();
+		Net.displayNcurses();
 		input = getch();
 		dat.refreshDatas();
 		refresh();
