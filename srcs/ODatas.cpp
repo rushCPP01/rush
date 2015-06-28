@@ -6,11 +6,25 @@ ODatas::ODatas(void)
     this->getUserName();
     this->getOSInfos();
     this->getDatas();
+    this->getCPUInfos();
     return;
 }
 
 ODatas::~ODatas(void)
 {
+    return;
+}
+
+void ODatas::getCPUInfos(void)
+{
+    char buf[2048] = {0};
+    size_t blen = 2048;
+    size_t len = sizeof(int);
+    sysctlbyname("hw.ncpu", &ncpu, &len, NULL, 0);
+    sysctlbyname("machdep.cpu.brand_string", buf, &blen, NULL, 0);
+    CPUInfos[0] = buf;
+    sysctlbyname("machdep.cpu.vendor", buf, &blen, NULL, 0);
+    CPUInfos[1] = buf;
     return;
 }
 

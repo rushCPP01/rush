@@ -20,6 +20,8 @@
         // OSInfos[1] = infos.release;
         // OSInfos[2] = infos.version;
         // OSInfos[3] = infos.machine;
+        // CPUInfos[0] = Name
+        // CPUInfos[1] = Vendor
         /* Process[0] == Tasks Total            */
         /* Process[1] == Tasks Running          */
         /* Process[2] == Tasks Sleeping         */
@@ -72,10 +74,13 @@ public:
     void getUserName(void);
     void getOSInfos(void);
     void getTime(void);
+    void getCPUInfos(void);
 
     std::string HostName;
     std::string UserName;
     std::string OSInfos[4];
+    std::string CPUInfos[2];
+    int         ncpu;
     std::string Time;
     std::vector<int>     Process;
     std::vector<float>   LoadAvg;

@@ -2,19 +2,19 @@
 
 CPUDisplay::CPUDisplay(ADatas& datas, int px, int py): m_datas(datas), posX(px), posY(py)
 {
-	win = subwin(stdscr, getmaxy(stdscr) / 2, (getmaxx(stdscr) / 2) - 2, posY, posX);
-	graph = subwin(win, getmaxy(win) - 7, getmaxx(win) - 2, posY + 5, posX + 1);
+	win = subwin(stdscr, getmaxy(stdscr) / 4, (getmaxx(stdscr)) - 4, posY, posX);
+	graph = subwin(win, getmaxy(win) - 10, getmaxx(win) - 2, posY + 9, posX + 1);
 	return;
 }
 
-int		choose_color(int value)
+int		CPUDisplay::choose_color(int value)
 {
 	return (42 + (value / 35));
 }
 
 void	CPUDisplay::displayNGraph(int c1, int c2, int c3)
 {
-	wresize(graph, getmaxy(win) - 7, getmaxx(win) - 2);
+	wresize(graph, getmaxy(win) - 10, getmaxx(win) - 2);
 	int y = getmaxy(graph);
 	int size = m_datas.m_stats.m_datas.size();
 	werase(graph);
@@ -33,23 +33,36 @@ void	CPUDisplay::displayNGraph(int c1, int c2, int c3)
 	wrefresh(graph);
 }
 
+void	CPUDisplay::displayInfos(void)
+{
+	wattron(win, COLOR_PAIR(45));
+	mvwprintw(win, 1, 1, "CPU Infos: ");
+	wattroff(win, COLOR_PAIR(45));;
+	wattron(win, COLOR_PAIR(45));
+	mvwprintw(win, 2, 2, "Name: %s", m_datas.m_stats.m_datas[0].CPUInfos[0].c_str());
+	mvwprintw(win, 3, 2, "Vendor: %s", m_datas.m_stats.m_datas[0].CPUInfos[1].c_str());
+	mvwprintw(win, 4, 2, "Cores: %d", m_datas.m_stats.m_datas[0].ncpu);
+	wattroff(win, COLOR_PAIR(45));;
+}
+
 void	CPUDisplay::displayNcurses(void)
 {
-	wresize(win, getmaxy(stdscr) / 4, (getmaxx(stdscr) / 2) - 2);
+	wresize(win, getmaxy(stdscr) / 4, (getmaxx(stdscr)) - 4);
 	werase(win);
 	int color1 = choose_color(m_datas.m_stats.m_datas.back().CPUsage[0]);
 	int color2 = choose_color(m_datas.m_stats.m_datas.back().CPUsage[1]);
 	int color3 = choose_color(m_datas.m_stats.m_datas.back().CPUsage[2]);
 	box(win, '|', '=');
-	mvwprintw(win, 1, 1, "CPU Usage:");
+	displayInfos();
+	mvwprintw(win, 5, 1, "CPU Usage:");
 	wattron(win, COLOR_PAIR(color1));
-	mvwprintw(win, 2, 2, "%.2f%% user.",m_datas.m_stats.m_datas.back().CPUsage[0]);
+	mvwprintw(win, 6, 2, "%.2f%% user.",m_datas.m_stats.m_datas.back().CPUsage[0]);
 	wattroff(win, COLOR_PAIR(color1));
 	wattron(win, COLOR_PAIR(color2));
-	mvwprintw(win, 3, 2, "%.2f%% system.",	m_datas.m_stats.m_datas.back().CPUsage[1]);
+	mvwprintw(win, 7, 2, "%.2f%% system.",	m_datas.m_stats.m_datas.back().CPUsage[1]);
 	wattroff(win, COLOR_PAIR(color2));
 	wattron(win, COLOR_PAIR(color3));
-	mvwprintw(win, 4, 2, "%.2f%% idle.",	m_datas.m_stats.m_datas.back().CPUsage[2]);
+	mvwprintw(win, 8, 2, "%.2f%% idle.",	m_datas.m_stats.m_datas.back().CPUsage[2]);
 	wattroff(win, COLOR_PAIR(color3));
 	wrefresh(win);
 	displayNGraph(45, 46, 47);

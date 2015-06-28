@@ -15,6 +15,9 @@
 #include "ADatas.hpp"
 #include "CPUDisplay.hpp"
 #include "InfosDisplay.hpp"
+#include "ProcessDisplay.hpp"
+#include "LoadADisplay.hpp"
+#include "MemoryDisplay.hpp"
 #define KEY_ECHAP 27
 #define NCOLOR(x) (x*4)
 #define MYGREEN	  67
@@ -23,6 +26,7 @@
 #define MYBLUE	  70
 #define MYYELLOW  71
 #define MYMAGENTA 72
+#define MYGREY	  73
 
 void				colorsDefines(void)
 {
@@ -32,6 +36,7 @@ void				colorsDefines(void)
 	init_color(MYBLUE, NCOLOR(41), NCOLOR(128), NCOLOR(185));
 	init_color(MYYELLOW, NCOLOR(241), NCOLOR(196), NCOLOR(15));
 	init_color(MYMAGENTA, NCOLOR(142), NCOLOR(68), NCOLOR(173));
+	init_color(MYGREY, NCOLOR(127), NCOLOR(140), NCOLOR(141));
 	init_pair(42, MYGREEN,COLOR_BLACK );
 	init_pair(43, MYORANGE, COLOR_BLACK);
 	init_pair(44, MYRED, COLOR_BLACK);
@@ -44,6 +49,7 @@ void				colorsDefines(void)
 	init_pair(51, COLOR_BLACK, MYBLUE);
 	init_pair(52, COLOR_BLACK, MYYELLOW);
 	init_pair(53, COLOR_BLACK, MYMAGENTA);
+	init_pair(53, COLOR_BLACK, MYGREY);
 }
 
 void				Ncurses_Mode(ADatas& dat)
@@ -64,14 +70,20 @@ void				Ncurses_Mode(ADatas& dat)
 	keypad(stdscr, TRUE);
 	nodelay(stdscr, TRUE);
 	InfosDisplay infos(dat, 2, 2);
-	CPUDisplay cpu(dat, 2, 13);
+	ProcessDisplay process(dat, 2, 13);
+	CPUDisplay cpu(dat, 2, 21);
+	LoadADisplay LoadAv(dat, 2, 21 + getmaxy(stdscr) / 4);
+	MemoryDisplay Mem(dat, 2, 50);
 	while (input != KEY_ECHAP)
 	{
-		dat.setInterval(getmaxx(stdscr) / 2);
+		dat.setInterval(getmaxx(stdscr));
 		erase();
 		box(stdscr, '|', '-');
 		cpu.displayNcurses();
 		infos.displayNcurses();
+		process.displayNcurses();
+		LoadAv.displayNcurses();
+		Mem.displayNcurses();
 		input = getch();
 		dat.refreshDatas();
 		refresh();
