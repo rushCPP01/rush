@@ -6,7 +6,7 @@
 /*   By: rpinet <rpinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/27 14:10:22 by rpinet            #+#    #+#             */
-/*   Updated: 2015/06/28 23:01:46 by rpinet           ###   ########.fr       */
+/*   Updated: 2015/06/28 23:23:10 by rpinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,9 @@ void 				print_help(void)
 void 				launch(ADatas *dat, char **av)
 {
 	//mieux faire fork
-	sfmlMode(*dat, av);
+
 	Ncurses_Mode(*dat, av);
+	sfmlMode(*dat, av);
 }
 
 void 				check_arg(int ac, char **av, ADatas *dat)

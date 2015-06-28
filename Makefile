@@ -28,7 +28,7 @@ all:		$(NAME)
 $(NAME):	$(OBJ)
 		@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) && \
 		printf "                                                                   \r" && \
-		printf "\033[0;32m\033[1m   %-28s\033[0m -->>\t\033[1m\033[31m[%s]\033[0;0m\n" \
+		printf "\033[0;32m\033[1m   %-28s\033[0m -->>\t\033[1m\033[31m[%s]\033[0;0m usage DYLD_FRAMEWORK_PATH=\`pwd\`"/SFML/Frameworks" ./ft_gkrellm -ng \n" \
 		"Compiling..." "$@"
 
 clean:
