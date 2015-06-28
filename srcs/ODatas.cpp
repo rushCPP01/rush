@@ -124,7 +124,7 @@ void ODatas::getDatas(void)
                 VM.emplace_back(tmp);
         }
         topinfos >> tmp;
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             topinfos >> tmp;
             Network.emplace_back(tmp);

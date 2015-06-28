@@ -16,24 +16,28 @@ void	MemoryDisplay::displayNGraph(void)
 {
 	wresize(graph, 16, ((getmaxx(win) - 4) / 2) + (getmaxx(win) / 4));
 	int y = getmaxy(graph);
+	int x = getmaxx(graph);
 	int size = m_datas.m_stats.m_datas.size();
 	int percent;
 	int max = m_datas.m_stats.m_datas[0].PhyMem[0] + m_datas.m_stats.m_datas[0].PhyMem[2];
 	werase(graph);
 	for (int i = 0; i < size; ++i)
 	{
-		percent = y - ((y * (m_datas.m_stats.m_datas[i].PhyMem[0])) / max);
-		wattron(graph, COLOR_PAIR(53));
-		for (int e = y; e > 0; --e)
-			mvwprintw(graph, e, i, " ");
-		wattroff(graph, COLOR_PAIR(53));
-		wattron(graph, COLOR_PAIR(49));
-		for (int f = y; f > percent; --f)
-			mvwprintw(graph, f, i, " ");
-		percent = y - ((y * (m_datas.m_stats.m_datas[i].PhyMem[1])) / (max - m_datas.m_stats.m_datas[i].PhyMem[2]));
-		for (int f = y; f > percent; --f)
-			mvwprintw(graph, f, i, ".");
-		wattroff(graph, COLOR_PAIR(49));
+		if (i < x)
+		{
+			percent = static_cast<int>(y - ((y * (m_datas.m_stats.m_datas[i].PhyMem[0])) / max));
+			wattron(graph, COLOR_PAIR(53));
+			for (int e = y - 1; e > 0; --e)
+				mvwprintw(graph, e, i, "|");
+			wattroff(graph, COLOR_PAIR(53));
+			wattron(graph, COLOR_PAIR(49));
+			for (int f = y - 1; f > percent; --f)
+				mvwprintw(graph, f, i, "^");
+			percent = static_cast<int>(y - ((y * (m_datas.m_stats.m_datas[i].PhyMem[1])) / (max - m_datas.m_stats.m_datas[i].PhyMem[2])));
+			for (int f = y - 1; f > percent; --f)
+				mvwprintw(graph, f, i, ".");
+			wattroff(graph, COLOR_PAIR(49));
+		}
 	}
 	wrefresh(graph);
 }

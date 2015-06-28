@@ -77,9 +77,10 @@ void				Ncurses_Mode(ADatas& dat)
 	LoadADisplay LoadAv(dat, 2, 21 + getmaxy(stdscr) / 4);
 	MemoryDisplay Mem(dat, 2, 21 + (getmaxy(stdscr) / 4) + 7);
 	NetworkDisplay Net(dat, 2, getmaxy(stdscr) - 25);
+	DiskDisplay Disk(dat, 2, getmaxy(stdscr) - 21);
 	while (input != KEY_ECHAP)
 	{
-		dat.setInterval(getmaxx(stdscr));
+		dat.setInterval((getmaxx(stdscr) - 8) / 2);
 		erase();
 		box(stdscr, '|', '-');
 		cpu.displayNcurses();
@@ -88,9 +89,11 @@ void				Ncurses_Mode(ADatas& dat)
 		LoadAv.displayNcurses();
 		Mem.displayNcurses();
 		Net.displayNcurses();
+		Disk.displayNcurses();
 		input = getch();
 		dat.refreshDatas();
 		refresh();
+		usleep(30000);
 	}
 	endwin();
 }

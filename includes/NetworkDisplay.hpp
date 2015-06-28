@@ -9,7 +9,6 @@ class NetworkDisplay: public IMonitorDisplay
 		NetworkDisplay(ADatas& datas, int px, int py);
 		~NetworkDisplay(void);
 		void	displayNcurses(void);
-		void	displayNGraph(void);
 		void	displayQt(void);
 		int		choose_color(int value);
 	private:

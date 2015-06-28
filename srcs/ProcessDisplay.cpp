@@ -17,9 +17,9 @@ void	ProcessDisplay::displayNcurses(void)
 	wresize(win, 8, getmaxx(stdscr) - 4);
 	int x = getmaxx(win);
 	werase(win);
-	wattron(win, COLOR_PAIR(51));
+	wattron(win, COLOR_PAIR(43));
 	box(win, '.', '.');
-	wattroff(win, COLOR_PAIR(51));
+	wattroff(win, COLOR_PAIR(43));
 	wattron(win, COLOR_PAIR(42));
 	mvwprintw(win, 1, (x / 2) - 11, "Processus:");
 	wattroff(win, COLOR_PAIR(42));

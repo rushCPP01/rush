@@ -3,7 +3,7 @@
 CPUDisplay::CPUDisplay(ADatas& datas, int px, int py): m_datas(datas), posX(px), posY(py)
 {
 	win = subwin(stdscr, getmaxy(stdscr) / 4, (getmaxx(stdscr)) - 4, posY, posX);
-	graph = subwin(win, getmaxy(win) - 10, getmaxx(win) - 2, posY + 9, posX + 1);
+	graph = subwin(win, getmaxy(win) - 4, ((getmaxx(win) - 4) / 2) + (getmaxx(win) / 4), posY + 1, posX + (getmaxx(win) / 4));
 	return;
 }
 
@@ -14,7 +14,7 @@ int		CPUDisplay::choose_color(int value)
 
 void	CPUDisplay::displayNGraph(int c1, int c2, int c3)
 {
-	wresize(graph, getmaxy(win) - 10, getmaxx(win) - 2);
+	wresize(graph, (getmaxy(win) - 4), ((getmaxx(win) - 4) / 2) + (getmaxx(win) / 4));
 	int y = getmaxy(graph);
 	int size = m_datas.m_stats.m_datas.size();
 	werase(graph);

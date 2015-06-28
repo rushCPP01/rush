@@ -17,10 +17,10 @@ void		InfosDisplay::displayNcurses(void)
 	wresize(win, 10, getmaxx(stdscr) - 4);
 	int x = getmaxx(win);
 	werase(win);
-	wattron(win, COLOR_PAIR(51));
+	wattron(win, COLOR_PAIR(45));
 	box(win, '|', '=');
 	mvwprintw(win, 1, (x / 2) - 6, "Infos:");	
-	wattroff(win, COLOR_PAIR(51));
+	wattroff(win, COLOR_PAIR(45));
 	wattron(win, COLOR_PAIR(45));	
 	mvwprintw(win, 3, (x / 2) - (10), "Hostname: %s", m_datas.getHostname().c_str());
 	mvwprintw(win, 4, (x / 2) - (10), "Username: %s", m_datas.getUsername().c_str());
