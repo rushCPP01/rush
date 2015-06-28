@@ -104,8 +104,10 @@ void 				test1sfml(ADatas &env)
 
     env.window = new sf::RenderWindow(sf::VideoMode(1000, 800), "SFML works!", sf::Style::Default, env.settings);
     env.window->setVerticalSyncEnabled(true); // , un appel suffit, après la création de la fenêtre
+	CPUDisplay cpu(env, 2, 21);
     while (env.window->isOpen())
     {
+		env.refreshDatas();
         sf::Event event;
         while (env.window->pollEvent(event))
         {
@@ -132,7 +134,7 @@ void 				test1sfml(ADatas &env)
 
         }
         env.window->clear(sf::Color::Black);
-		Tools::drawGraph(env.window);
+        cpu.displayQt();
         env.window->display();
         sf::sleep(sf::seconds(0.1f));
     }
@@ -147,6 +149,6 @@ int					main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	Ncurses_Mode(dat);
-//	test1sfml(dat);
+	test1sfml(dat);
 	return 0;
 }

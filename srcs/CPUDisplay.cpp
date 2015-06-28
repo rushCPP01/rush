@@ -77,5 +77,35 @@ CPUDisplay::~CPUDisplay(void)
 
 void	CPUDisplay::displayQt(void)
 {
+	std::vector<sf::Vertex> user;
+	std::vector<sf::Vertex> sys;
+	std::vector<sf::Vertex> idle;
+// sf::Vector2f(500, 500); // for origin
+	float posX = 100;
+	float posY = 300;
+	int size = m_datas.m_stats.m_datas.size();
+
+	sf::Font font;
+	if (!font.loadFromFile("misc/Calibri.ttf")) {
+		std::cout << "Font loading error." << std::endl;
+		exit(0);
+	}
+	sf::Text text;
+	text.setFont(font); // choix de la police à utiliser // font est un sf::Font
+	text.setString("CPU usage");// choix de la chaîne de caractères à afficher
+	text.setCharacterSize(24); // choix de la taille des caractères // exprimée en pixels, pas en points !
+	text.setColor(sf::Color(50, 255, 200, 150));// choix de la couleur du texte
+	text.setPosition(posX, posY + 30);
+	m_datas.window->draw(text);
+	//vector<int> values.size()
+	for (int i = 0; i < size; ++i)
+	{
+		user.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[0])), sf::Color::Red));
+		sys.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[1])), sf::Color::Blue));
+		idle.push_back(sf::Vertex(sf::Vector2f(posX + (i * 5), posY - static_cast<float>(m_datas.m_stats.m_datas[i].CPUsage[2])), sf::Color::Green));
+	}
+	m_datas.window->draw(&user[0], user.size(), sf::LinesStrip);
+	m_datas.window->draw(&sys[0], sys.size(), sf::LinesStrip);
+	m_datas.window->draw(&idle[0],idle.size(), sf::LinesStrip);
 	return;
 }
