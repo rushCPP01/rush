@@ -6,7 +6,7 @@
 /*   By: rpinet <rpinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/27 14:10:22 by rpinet            #+#    #+#             */
-/*   Updated: 2015/06/28 23:23:10 by rpinet           ###   ########.fr       */
+/*   Updated: 2015/06/28 23:39:05 by rpinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,67 @@ void				colorsDefines(void)
 	init_pair(53, COLOR_BLACK, MYGREY);
 }
 
+
+// static bool	ft_check(void)
+// {
+// 	struct winsize	size;
+
+// 	if (ioctl(0, TIOCGWINSZ, (void *)&size) < 0)
+// 		std::cout << "Error: while checking window size." << std::endl;
+// 	else if (size.ws_row < MINY || size.ws_col < MINX)
+// 	{
+// 		std::cout << "Error: The window is too small: (";
+// 		std::cout << size.ws_col << "/" << MINX << " - ";
+// 		std::cout << size.ws_row << "/" << MINY << ")." << std::endl;
+// 	}
+// 	else
+// 		return (false);
+// 	return (true);
+// }
+
+// static void	ft_sighandler(int signal)
+// {
+// 	if (ft_check())
+// 	{
+//  		keypad(stdscr, false);
+//   		nodelay(stdscr, false);
+//   		nocbreak();
+//   		echo();
+//   		endwin();
+//   		std::cout << "Error: The window is too small." << std::endl;
+// 		exit(signal);
+// 	}
+// }
+
+// static void	ft_sigreset(int signal)
+// {
+//  	keypad(stdscr, false);
+//   	nodelay(stdscr, false);
+//   	nocbreak();
+//   	echo();
+//   	endwin();
+//   	std::cout << "Segfault, trying to quit properly..." << std::endl;
+//   	exit(signal);
+// }
+
+
+
 void				Ncurses_Mode(ADatas & dat, char **av)
 {
 	int input = -1;
 	int x;
 	int y;
 
+	// signal(SIGWINCH, ft_sighandler);
+	// signal(SIGSEGV, ft_sigreset);
+
+	// if (ft_check())
+	// 	return (0);
+
 	initscr();
 	x = getmaxx(stdscr);
 	y = getmaxy(stdscr);
+
 	dat.setInterval(x / 4);
 	start_color();
 	colorsDefines();
